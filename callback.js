@@ -1,6 +1,6 @@
 function readBooks(time, book, callback) {
-  console.log("saya membaca " + book.name);
   setTimeout(function () {
+    console.log("saya membaca " + book.name);
     let sisaWaktu = 0;
     if (time >= book.timeSpent) {
       sisaWaktu = time - book.timeSpent;
@@ -20,10 +20,12 @@ var books = [
   { name: "komik", timeSpent: 1000 },
 ];
 
-function call() {
-  console.log("test callback berhasil");
-}
-
-for (let i = 0; i < books.length; i++) {
-  readBooks(10000, books[i], call);
-}
+readBooks(10000, books[0], function (x) {
+  return readBooks(x, books[1], function (y) {
+    return readBooks(y, books[2], function (z) {
+      return readBooks(z, books[3], (function (a){
+        return readBooks(a, books[3], ()=>{})
+      }));
+    });
+  });
+});
